@@ -1,0 +1,10 @@
+// Arithmetic + variables
+let x = 10;
+let y = 32;
+print x + y;       // 42
+
+// Booleans + comparisons
+let a = true;
+print a;           // true
+print 5 < 10;      // true
+print 7 == 8;      // false

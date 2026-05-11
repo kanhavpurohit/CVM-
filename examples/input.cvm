@@ -1,0 +1,9 @@
+// Read two numbers, print the larger
+print 0;        // prompt sentinel
+input a;
+input b;
+if (a > b) {
+    print a;
+} else {
+    print b;
+}
