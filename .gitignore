@@ -1,1 +1,23 @@
 .claude/
+
+# CMake build output
+build/
+
+# Build artifacts (object files, executables, debug info)
+*.o
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.exp
+*.lib
+
+# IDE / editor
+.vs/
+.vscode/
+*.user
+*.suo
+
+# OS junk
+Thumbs.db
+.DS_Store

@@ -12,12 +12,10 @@ $ErrorActionPreference = "Stop"
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $ProjectRoot
 
-# Find cmake — fall back to common install path if not on PATH.
+# Require cmake on PATH — no hardcoded install paths.
 $cmake = (Get-Command cmake -ErrorAction SilentlyContinue).Source
 if (-not $cmake) {
-    $candidate = "C:\Program Files\CMake\bin\cmake.exe"
-    if (Test-Path $candidate) { $cmake = $candidate }
-    else { throw "CMake not found. Install it or add it to PATH." }
+    throw "CMake not found on PATH. Install CMake (winget install Kitware.CMake) or add it to PATH."
 }
 
 if ($Clean -and (Test-Path build)) {
