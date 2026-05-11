@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CVM++ Visualizer</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/theme/monokai.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+    <header>
+        <h1>CVM<span class="accent">++</span> Visualizer</h1>
+        <div class="subtitle">Source → Tokens → AST → Bytecode → Output</div>
+    </header>
+
+    <main>
+        <section class="pane editor-pane">
+            <div class="pane-header">
+                <span>Source</span>
+                <div class="example-buttons">
+                    <button data-example="hello">hello</button>
+                    <button data-example="loop">loop</button>
+                    <button data-example="fizzbuzz">fizzbuzz</button>
+                    <button data-example="input">input</button>
+                </div>
+            </div>
+            <textarea id="code"></textarea>
+            <div class="run-bar">
+                <label>stdin (for <code>input</code>): <input id="stdin" type="text" placeholder="e.g. 4 7" /></label>
+                <button id="run">▶ Analyze &amp; Run</button>
+            </div>
+        </section>
+
+        <section class="pane right-pane">
+            <div class="tabs">
+                <button class="tab active" data-tab="ast">AST</button>
+                <button class="tab" data-tab="tokens">Tokens</button>
+                <button class="tab" data-tab="bytecode">Bytecode</button>
+                <button class="tab" data-tab="output">Output</button>
+            </div>
+
+            <div id="error" class="error hidden"></div>
+
+            <div class="tab-pane active" data-pane="ast">
+                <div class="hint">Drag to pan · scroll to zoom · double-click background to reset.</div>
+                <div id="ast-container"><svg id="ast-svg"></svg></div>
+            </div>
+
+            <div class="tab-pane" data-pane="tokens">
+                <table id="tokens-table">
+                    <thead><tr><th>#</th><th>type</th><th>value</th><th>line</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane" data-pane="bytecode">
+                <div id="bytecode-vars" class="vars-line"></div>
+                <table id="bytecode-table">
+                    <thead><tr><th>addr</th><th>opcode</th><th>operand</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane" data-pane="output">
+                <pre id="output"></pre>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/clike/clike.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script src="/app.js"></script>
+</body>
+</html>
