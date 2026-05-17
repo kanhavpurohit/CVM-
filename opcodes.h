@@ -27,3 +27,9 @@ const char* opName(OpCode op);
 // Disassembles bytecode to stdout for debugging.
 void disassemble(const std::vector<uint8_t>& code,
                  const std::vector<std::string>& vars);
+
+// JSON disassembly (for the web visualizer).
+#include <iosfwd>
+void bytecodeToJson(const std::vector<uint8_t>& code,
+                    const std::vector<std::string>& vars,
+                    std::ostream& out);

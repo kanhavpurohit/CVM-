@@ -79,3 +79,7 @@ struct ExprStmt : Node {
 
 // ── Debug printer ──────────────────────────────────
 void printAst(const Node* node, int indent = 0);
+
+// ── JSON serializer (for the web visualizer) ───────
+void astToJson(const Node* node, std::ostream& out);
+std::string jsonEscape(const std::string& s);

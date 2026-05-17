@@ -40,6 +40,51 @@ static int32_t readI32(const std::vector<uint8_t>& code, size_t i) {
     return v;
 }
 
+void bytecodeToJson(const std::vector<uint8_t>& code,
+                    const std::vector<std::string>& vars,
+                    std::ostream& o) {
+    o << "{\"vars\":[";
+    for (size_t i = 0; i < vars.size(); ++i) {
+        if (i) o << ",";
+        o << "\"" << vars[i] << "\"";
+    }
+    o << "],\"code\":[";
+    bool first = true;
+    for (size_t i = 0; i < code.size(); ) {
+        if (!first) o << ",";
+        first = false;
+        size_t addr = i;
+        OpCode op = (OpCode)code[i++];
+        o << "{\"address\":" << addr << ",\"opcode\":\"" << opName(op) << "\"";
+        switch (op) {
+            case OP_PUSH_INT: {
+                int32_t v = readI32(code, i); i += 4;
+                o << ",\"operand\":" << v;
+                break;
+            }
+            case OP_PUSH_BOOL: {
+                o << ",\"operand\":" << (code[i] ? "true" : "false");
+                i += 1;
+                break;
+            }
+            case OP_LOAD: case OP_STORE: case OP_INPUT: {
+                uint16_t s = readU16(code, i); i += 2;
+                o << ",\"slot\":" << s;
+                if (s < vars.size()) o << ",\"var\":\"" << vars[s] << "\"";
+                break;
+            }
+            case OP_JMP: case OP_JMP_FALSE: {
+                uint16_t t = readU16(code, i); i += 2;
+                o << ",\"target\":" << t;
+                break;
+            }
+            default: break;
+        }
+        o << "}";
+    }
+    o << "]}";
+}
+
 void disassemble(const std::vector<uint8_t>& code,
                  const std::vector<std::string>& vars) {
     std::cout << "=== Bytecode (" << code.size() << " bytes, "

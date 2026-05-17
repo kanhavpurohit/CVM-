@@ -25,6 +25,9 @@ struct Token {
     int line;
 };
 
+// Returns the textual name of a token type (e.g. "PLUS"). Used by JSON output.
+const char* tokenTypeName(TokenType t);
+
 // ── Lexer class ─────────────────────────────────────
 class Lexer {
 public:

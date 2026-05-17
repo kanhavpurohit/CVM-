@@ -10,6 +10,44 @@ static const std::unordered_map<std::string, TokenType> KEYWORDS = {
     {"true",   TokenType::TRUE},   {"false",  TokenType::FALSE}
 };
 
+const char* tokenTypeName(TokenType t) {
+    switch (t) {
+        case TokenType::NUMBER:      return "NUMBER";
+        case TokenType::STRING:      return "STRING";
+        case TokenType::IDENTIFIER:  return "IDENTIFIER";
+        case TokenType::LET:         return "LET";
+        case TokenType::IF:          return "IF";
+        case TokenType::ELSE:        return "ELSE";
+        case TokenType::WHILE:       return "WHILE";
+        case TokenType::FN:          return "FN";
+        case TokenType::RETURN:      return "RETURN";
+        case TokenType::PRINT:       return "PRINT";
+        case TokenType::INPUT:       return "INPUT";
+        case TokenType::TRUE:        return "TRUE";
+        case TokenType::FALSE:       return "FALSE";
+        case TokenType::PLUS:        return "PLUS";
+        case TokenType::MINUS:       return "MINUS";
+        case TokenType::STAR:        return "STAR";
+        case TokenType::SLASH:       return "SLASH";
+        case TokenType::MOD:         return "MOD";
+        case TokenType::ASSIGN:      return "ASSIGN";
+        case TokenType::EQ:          return "EQ";
+        case TokenType::NEQ:         return "NEQ";
+        case TokenType::LT:          return "LT";
+        case TokenType::GT:          return "GT";
+        case TokenType::LEQ:         return "LEQ";
+        case TokenType::GEQ:         return "GEQ";
+        case TokenType::LPAREN:      return "LPAREN";
+        case TokenType::RPAREN:      return "RPAREN";
+        case TokenType::LBRACE:      return "LBRACE";
+        case TokenType::RBRACE:      return "RBRACE";
+        case TokenType::SEMICOLON:   return "SEMICOLON";
+        case TokenType::COMMA:       return "COMMA";
+        case TokenType::END_OF_FILE: return "EOF";
+    }
+    return "?";
+}
+
 Lexer::Lexer(const std::string& src) : source(src), pos(0), line(1) {}
 
 char Lexer::current() const { return pos < source.size() ? source[pos] : '\0'; }
